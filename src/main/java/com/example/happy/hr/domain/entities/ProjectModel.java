@@ -1,6 +1,5 @@
 package com.example.happy.hr.domain.entities;
 
-import com.example.happy.hr.domain.enums.ProjectModelType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -19,10 +18,8 @@ public class ProjectModel {
     @Column(name = "proj_mod_id")
     private Integer id;
 
-    @Length(max = 150)
-    @Enumerated(EnumType.STRING)
     @Column(name = "model_type")
-    private ProjectModelType modelType;
+    private String projectModelType;
 
     @Length(max = 300)
     @Column(name = "interviewer_name")
@@ -36,9 +33,9 @@ public class ProjectModel {
     @Column(name = "cv_to")
     private String cvTo;
 
-    public ProjectModel(ProjectModelType modelType, String interviewerName,
+    public ProjectModel(String projectModelType, String interviewerName,
                         Integer numOfInterviews, String cvTo) {
-        this.modelType = modelType;
+        this.projectModelType = projectModelType;
         this.interviewerName = interviewerName;
         this.numOfInterviews = numOfInterviews;
         this.cvTo = cvTo;

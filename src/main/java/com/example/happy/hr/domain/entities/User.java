@@ -41,7 +41,7 @@ public class User {
     @Length(max = 1024)
     private String password;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "cardAuthor", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE})
     List<ProjectCard> cards;
 
     public User(String surname, String name,

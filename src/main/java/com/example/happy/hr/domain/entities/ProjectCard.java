@@ -1,7 +1,6 @@
 package com.example.happy.hr.domain.entities;
 
 import com.example.happy.hr.domain.enums.ProjectCardStatus;
-import com.example.happy.hr.domain.enums.ProjectStage;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -29,30 +28,26 @@ public class ProjectCard {
     @Column(name = "proj_client_name")
     private String projClientName;
 
-    @Enumerated(EnumType.STRING)
-    @Length(max = 150)
     @Column(name = "project_stage")
-    private ProjectStage projectStage;
+    private String projectStage;
 
-    @Length(max = 1024)
     @Column(name = "functional_direction")
-    private String functionalDirection;
+    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
+    private String[] functionalDirection;
 
-    @Length(max = 1024)
     @Column(name = "subject_area")
-    private String subjectArea;
+    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
+    private String[] subjectArea;
 
     @Column(name = "project_description")
     private String projectDescription;
 
-    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
-    private String[] objectives;
+    private String objectives;
 
     @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
     private String[] technologies;
 
-    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
-    private String[] stakeholders;
+    private String stakeholders;
 
     @Column(name = "completion_date")
     private Date completionDate;
@@ -64,36 +59,35 @@ public class ProjectCard {
     private Boolean gost;
 
     @Enumerated(EnumType.STRING)
-    @Length(max = 150)
     @Column(name = "card_status")
-    private ProjectCardStatus status;
+    private ProjectCardStatus cardStatus;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_type_id")
     private ProjectType projectType;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User author;
+    private User cardAuthor;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "whp_id")
-    private WorkingHoursPattern pattern;
+    private WorkingHoursPattern workingHoursPattern;
 
-    public ProjectCard(String projectName, String projClientName, ProjectStage projectStage,
-                       String functionalDirection, String subjectArea, String projectDescription,
-                       String[] objectives, String[] technologies, String[] stakeholders,
+    public ProjectCard(String projectName, String projClientName, String projectStage,
+                       String[] functionalDirection, String[] subjectArea, String projectDescription,
+                       String objectives, String[] technologies, String stakeholders,
                        Date completionDate, Date peopleLaunchDate, Boolean gost,
-                       ProjectCardStatus status, ProjectType projectType, Team team,
-                       Location location, User author, WorkingHoursPattern pattern) {
+                       ProjectCardStatus cardStatus, ProjectType projectType, Team team,
+                       Location location, User cardAuthor, WorkingHoursPattern workingHoursPattern) {
         this.projectName = projectName;
         this.projClientName = projClientName;
         this.projectStage = projectStage;
@@ -106,11 +100,11 @@ public class ProjectCard {
         this.completionDate = completionDate;
         this.peopleLaunchDate = peopleLaunchDate;
         this.gost = gost;
-        this.status = status;
+        this.cardStatus = cardStatus;
         this.projectType = projectType;
         this.team = team;
         this.location = location;
-        this.author = author;
-        this.pattern = pattern;
+        this.cardAuthor = cardAuthor;
+        this.workingHoursPattern = workingHoursPattern;
     }
 }

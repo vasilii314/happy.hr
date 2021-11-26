@@ -1,6 +1,5 @@
 package com.example.happy.hr.domain.entities;
 
-import com.example.happy.hr.domain.enums.LocationType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -21,11 +20,10 @@ public class Location {
     @Length(max = 1024)
     private String address;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "location_type")
-    private LocationType locationType;
+    private String locationType;
 
-    public Location(String address, LocationType locationType) {
+    public Location(String address, String locationType) {
         this.address = address;
         this.locationType = locationType;
     }

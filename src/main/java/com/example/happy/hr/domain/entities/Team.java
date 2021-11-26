@@ -1,8 +1,8 @@
 package com.example.happy.hr.domain.entities;
 
-import com.example.happy.hr.domain.enums.DevMethodology;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
@@ -18,9 +18,9 @@ public class Team {
     @Column(name = "team_id")
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
+    @Length(max = 500)
     @Column(name = "dev_method")
-    private DevMethodology devMethodology;
+    private String devMethodology;
 
     @Column(name = "is_product_dev")
     private Boolean productDevelopment;
@@ -46,9 +46,8 @@ public class Team {
     @Column(name = "people_in_team_num")
     private Integer peopleInTeamNum;
 
-    public Team(DevMethodology devMethodology, Boolean productDevelopment,
-                Boolean testers, Boolean techWriters,
-                Integer analystsNum, Integer devsNum,
+    public Team(String devMethodology, Boolean productDevelopment, Boolean testers,
+                Boolean techWriters, Integer analystsNum, Integer devsNum,
                 Boolean teamReady, Integer peopleInTeamNum) {
         this.devMethodology = devMethodology;
         this.productDevelopment = productDevelopment;

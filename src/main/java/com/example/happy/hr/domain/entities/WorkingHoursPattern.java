@@ -1,9 +1,7 @@
 package com.example.happy.hr.domain.entities;
 
-import com.example.happy.hr.domain.enums.Overtime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -25,18 +23,14 @@ public class WorkingHoursPattern {
     @Column(name = "whp_till")
     private Time whpTill;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "overtime")
-    @Length(max = 150)
-    private Overtime overtime;
+    private String overtime;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "possible_work_schedule_id")
     private PossibleWorkSchedule possibleWorkSchedule;
 
-    public WorkingHoursPattern(Time whpFrom,
-                               Time whpTill,
-                               Overtime overtime,
+    public WorkingHoursPattern(Time whpFrom, Time whpTill, String overtime,
                                PossibleWorkSchedule possibleWorkSchedule) {
         this.whpFrom = whpFrom;
         this.whpTill = whpTill;
