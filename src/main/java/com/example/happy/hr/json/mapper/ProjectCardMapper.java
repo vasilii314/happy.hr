@@ -10,5 +10,6 @@ import org.mapstruct.Mappings;
 public interface ProjectCardMapper {
 
     ProjectCardDto toProjectCardDto(ProjectCard card);
+
     ProjectCard toProjectCard(ProjectCardDto dto);
 }

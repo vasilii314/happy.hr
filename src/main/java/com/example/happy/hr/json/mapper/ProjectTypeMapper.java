@@ -8,5 +8,6 @@ import org.mapstruct.Mapper;
 public interface ProjectTypeMapper {
 
     ProjectTypeDto toProjectTypeDto(ProjectType projectType);
+
     ProjectType toProjectType(ProjectTypeDto dto);
 }

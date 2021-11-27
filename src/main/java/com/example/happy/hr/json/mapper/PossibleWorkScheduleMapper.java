@@ -8,5 +8,6 @@ import org.mapstruct.Mapper;
 public interface PossibleWorkScheduleMapper {
 
     PossibleWorkScheduleDto toPossibleWorkScheduleDto(PossibleWorkSchedule possibleWorkSchedule);
+
     PossibleWorkSchedule toPossibleWorkSchedule(PossibleWorkScheduleDto dto);
 }

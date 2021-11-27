@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 @AllArgsConstructor
@@ -17,11 +19,14 @@ public class ProjectModelDto {
     private String projectModelType;
 
     @Length(max = 300)
+    @NotBlank
     private String interviewerName;
 
     @PositiveOrZero
+    @NotNull
     private Integer numOfInterviews;
 
     @Length(max = 300)
+    @NotBlank
     private String cvTo;
 }

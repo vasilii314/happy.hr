@@ -1,12 +1,13 @@
 package com.example.happy.hr.domain.entities;
 
-import com.example.happy.hr.domain.enums.ProjectCardStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
@@ -21,13 +22,16 @@ public class ProjectCard {
     private Integer id;
 
     @Length(max = 500)
+    @NotBlank
     @Column(name = "project_name")
     private String projectName;
 
     @Length(max = 500)
+    @NotBlank
     @Column(name = "proj_client_name")
     private String projClientName;
 
+    @NotBlank
     @Column(name = "project_stage")
     private String projectStage;
 
@@ -39,6 +43,7 @@ public class ProjectCard {
     @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
     private String[] subjectArea;
 
+    @NotBlank
     @Column(name = "project_description")
     private String projectDescription;
 
@@ -55,15 +60,17 @@ public class ProjectCard {
     @Column(name = "people_launch_date")
     private Date peopleLaunchDate;
 
+    @NotNull
     @Column(name = "has_gost")
     private Boolean gost;
 
-    @Enumerated(EnumType.STRING)
+    @Length(max = 150)
     @Column(name = "card_status")
-    private ProjectCardStatus cardStatus;
+    private String cardStatus;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_type_id")
+    @NotNull
     private ProjectType projectType;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -86,7 +93,7 @@ public class ProjectCard {
                        String[] functionalDirection, String[] subjectArea, String projectDescription,
                        String objectives, String[] technologies, String stakeholders,
                        Date completionDate, Date peopleLaunchDate, Boolean gost,
-                       ProjectCardStatus cardStatus, ProjectType projectType, Team team,
+                       String cardStatus, ProjectType projectType, Team team,
                        Location location, User cardAuthor, WorkingHoursPattern workingHoursPattern) {
         this.projectName = projectName;
         this.projClientName = projClientName;

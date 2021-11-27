@@ -23,7 +23,6 @@ public class WorkingHoursPattern {
     @Column(name = "whp_till")
     private Time whpTill;
 
-    @Column(name = "overtime")
     private String overtime;
 
     @OneToOne(cascade = CascadeType.ALL)

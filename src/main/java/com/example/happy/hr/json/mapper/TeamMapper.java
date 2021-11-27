@@ -8,5 +8,6 @@ import org.mapstruct.Mapper;
 public interface TeamMapper {
 
     TeamDto toTeamDto(Team team);
+
     Team toTeam(TeamDto dto);
 }

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "project_type")
@@ -17,16 +19,20 @@ public class ProjectType {
     private Integer id;
 
     @Column(name = "software_complex")
+    @NotBlank
     private String softwareComplex;
 
     @Column(name = "is_mvp")
+    @NotNull
     private Boolean mvp;
 
     @Column(name = "system")
+    @NotBlank
     private String systemType;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proj_model_id")
+    @NotNull
     private ProjectModel projectModel;
 
     public ProjectType(String softwareComplex, Boolean mvp,

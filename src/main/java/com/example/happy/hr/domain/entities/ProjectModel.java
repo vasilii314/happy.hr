@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -19,6 +21,7 @@ public class ProjectModel {
     private Integer id;
 
     @Column(name = "model_type")
+    @NotBlank
     private String projectModelType;
 
     @Length(max = 300)
@@ -27,10 +30,12 @@ public class ProjectModel {
 
     @PositiveOrZero
     @Column(name = "num_of_interviews")
+    @NotNull
     private Integer numOfInterviews;
 
     @Length(max = 300)
     @Column(name = "cv_to")
+    @NotBlank
     private String cvTo;
 
     public ProjectModel(String projectModelType, String interviewerName,

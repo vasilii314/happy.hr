@@ -10,6 +10,7 @@ import java.sql.Time;
 @NoArgsConstructor
 @Data
 public class WorkingHoursPatternDto {
+
     private Integer id;
 
     private Time whpFrom;

@@ -8,5 +8,6 @@ import org.mapstruct.Mapper;
 public interface ProjectModelMapper {
 
     ProjectModelDto toProjectModelDto(ProjectModel projectModel);
+
     ProjectModel toProjectModel(ProjectModelDto dto);
 }
