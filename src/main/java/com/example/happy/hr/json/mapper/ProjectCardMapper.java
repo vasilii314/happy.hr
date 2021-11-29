@@ -6,7 +6,6 @@ import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.TeamDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
 public interface ProjectCardMapper {
