@@ -26,8 +26,12 @@ public class TeamDto {
     @PositiveOrZero
     private Integer analystsNum;
 
+    private Boolean hasAnalysts;
+
     @PositiveOrZero
     private Integer devsNum;
+
+    private Boolean hasDevs;
 
     private Boolean teamReady;
 
