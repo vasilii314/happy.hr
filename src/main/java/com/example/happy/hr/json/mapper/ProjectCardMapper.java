@@ -23,15 +23,15 @@ public interface ProjectCardMapper {
 
         TeamDto teamDto = new TeamDto();
 
-        teamDto.setId( team.getId() );
-        teamDto.setDevMethodology( team.getDevMethodology() );
-        teamDto.setProductDevelopment( team.getProductDevelopment() );
-        teamDto.setTesters( team.getTesters() );
-        teamDto.setTechWriters( team.getTechWriters() );
-        teamDto.setAnalystsNum( team.getAnalystsNum() );
-        teamDto.setDevsNum( team.getDevsNum() );
-        teamDto.setTeamReady( team.getTeamReady() );
-        teamDto.setPeopleInTeamNum( team.getPeopleInTeamNum() );
+        teamDto.setId(team.getId());
+        teamDto.setDevMethodology(team.getDevMethodology());
+        teamDto.setProductDevelopment(team.getProductDevelopment());
+        teamDto.setTesters(team.getTesters());
+        teamDto.setTechWriters(team.getTechWriters());
+        teamDto.setAnalystsNum(team.getAnalystsNum());
+        teamDto.setDevsNum(team.getDevsNum());
+        teamDto.setTeamReady(team.getTeamReady());
+        teamDto.setPeopleInTeamNum(team.getPeopleInTeamNum());
         teamDto.setHasDevs(mapDevsNumToHasDevs(team));
         teamDto.setHasAnalysts(mapAnalystsNumToHasAnalysts(team));
 
