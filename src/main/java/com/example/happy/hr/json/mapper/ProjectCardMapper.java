@@ -11,8 +11,12 @@ import org.mapstruct.Mapping;
 public interface ProjectCardMapper {
 
     @Mapping(target = "team", expression = "java(toTeamDto(card.getTeam()))")
+    @Mapping(target = "completionDate", expression = "java(card.getCompletionDate().toString())")
+    @Mapping(target = "peopleLaunchDate", expression = "java(card.getPeopleLaunchDate().toString())")
     ProjectCardDto toProjectCardDto(ProjectCard card);
 
+    @Mapping(target = "completionDate", expression = "java(java.sql.Date.valueOf(dto.getCompletionDate()))")
+    @Mapping(target = "peopleLaunchDate", expression = "java(java.sql.Date.valueOf(dto.getPeopleLaunchDate()))")
     ProjectCard toProjectCard(ProjectCardDto dto);
 
     default TeamDto toTeamDto(Team team) {

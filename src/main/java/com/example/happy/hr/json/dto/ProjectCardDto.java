@@ -40,9 +40,9 @@ public class ProjectCardDto {
 
     private String stakeholders;
 
-    private Date completionDate;
+    private String completionDate;
 
-    private Date peopleLaunchDate;
+    private String peopleLaunchDate;
 
     private Boolean gost;
 

@@ -15,5 +15,7 @@ public class LocationDto {
     @Length(max = 1024)
     private String address;
 
-    private String locationType;
+    private Boolean office;
+
+    private Boolean outsource;
 }

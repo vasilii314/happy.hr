@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
     List<Location> findByAddress(String address);
-    List<Location> findByLocationType(String locationType);
 }

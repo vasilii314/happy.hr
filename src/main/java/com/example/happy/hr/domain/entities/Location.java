@@ -20,11 +20,13 @@ public class Location {
     @Length(max = 1024)
     private String address;
 
-    @Column(name = "location_type")
-    private String locationType;
+    private Boolean office;
 
-    public Location(String address, String locationType) {
+    private Boolean outsource;
+
+    public Location(String address, Boolean office, Boolean outsource) {
         this.address = address;
-        this.locationType = locationType;
+        this.office = office;
+        this.outsource = outsource;
     }
 }
