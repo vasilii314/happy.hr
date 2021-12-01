@@ -20,6 +20,7 @@ public interface ProjectCardMapper {
     ProjectCard toProjectCard(ProjectCardDto dto);
 
     default TeamDto toTeamDto(Team team) {
+
         if ( team == null ) {
             return null;
         }
