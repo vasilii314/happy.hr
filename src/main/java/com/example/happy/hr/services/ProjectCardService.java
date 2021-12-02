@@ -8,8 +8,16 @@ import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
 import java.util.List;
 
 public interface ProjectCardService {
+
     List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info);
+
     ProjectCardDto getProjectCardById(Integer projectCardId);
+
     void save(ProjectCardDto cardDto);
+
     void archiveById(Integer id);
+
+    void unarchiveById(Integer id);
+
+    void deleteById(Integer id);
 }

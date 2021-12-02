@@ -11,12 +11,16 @@ import org.mapstruct.Mapping;
 public interface ProjectCardMapper {
 
     @Mapping(target = "team", expression = "java(toTeamDto(card.getTeam()))")
-    @Mapping(target = "completionDate", expression = "java(card.getCompletionDate().toString())")
-    @Mapping(target = "peopleLaunchDate", expression = "java(card.getPeopleLaunchDate().toString())")
+    @Mapping(target = "completionDate",
+            expression = "java(card.getCompletionDate() == null ? null : card.getCompletionDate().toString())")
+    @Mapping(target = "peopleLaunchDate",
+            expression = "java(card.getPeopleLaunchDate() == null ? null : card.getPeopleLaunchDate().toString())")
     ProjectCardDto toProjectCardDto(ProjectCard card);
 
-    @Mapping(target = "completionDate", expression = "java(java.sql.Date.valueOf(dto.getCompletionDate()))")
-    @Mapping(target = "peopleLaunchDate", expression = "java(java.sql.Date.valueOf(dto.getPeopleLaunchDate()))")
+    @Mapping(target = "completionDate",
+            expression = "java(dto.getCompletionDate() == null || dto.getCompletionDate().trim() == \"\" ? null : java.sql.Date.valueOf(dto.getCompletionDate()))")
+    @Mapping(target = "peopleLaunchDate",
+            expression = "java(dto.getPeopleLaunchDate() == null || dto.getPeopleLaunchDate().trim() == \"\" ? null : java.sql.Date.valueOf(dto.getPeopleLaunchDate()))")
     ProjectCard toProjectCard(ProjectCardDto dto);
 
     default TeamDto toTeamDto(Team team) {
@@ -53,6 +57,6 @@ public interface ProjectCardMapper {
         if (team == null) {
             return false;
         }
-        return team.getDevsNum() != null && team.getAnalystsNum() > 0;
+        return team.getAnalystsNum() != null && team.getAnalystsNum() > 0;
     }
 }

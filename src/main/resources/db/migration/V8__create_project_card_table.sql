@@ -13,6 +13,7 @@ CREATE TABLE project_card (
     people_launch_date DATE,
     has_gost BOOLEAN,
     card_status VARCHAR(150),
+    prev_card_status VARCHAR(150),
     project_type_id INT,
     team_id INT,
     location_id INT,

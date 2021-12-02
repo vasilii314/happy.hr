@@ -6,12 +6,11 @@ import com.example.happy.hr.domain.entities.ProjectCard;
 import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
 import com.example.happy.hr.json.mapper.ProjectCardMapper;
-import com.example.happy.hr.json.mapper.UserMapper;
 import com.example.happy.hr.repositories.ProjectCardRepository;
-import com.example.happy.hr.repositories.UserRepository;
 import com.example.happy.hr.services.ProjectCardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +51,19 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     }
 
     @Override
+    @Transactional
     public void archiveById(Integer id) {
+        projectCardRepository.archiveById(id);
+    }
 
+    @Override
+    @Transactional
+    public void unarchiveById(Integer id) {
+        projectCardRepository.unarchiveById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        projectCardRepository.deleteById(id);
     }
 }

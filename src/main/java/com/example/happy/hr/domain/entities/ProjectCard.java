@@ -68,6 +68,10 @@ public class ProjectCard {
     @Column(name = "card_status")
     private String cardStatus;
 
+    @Length(max = 150)
+    @Column(name = "prev_card_status")
+    private String prevCardStatus;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_type_id")
     @NotNull
@@ -93,8 +97,9 @@ public class ProjectCard {
                        String[] functionalDirection, String[] subjectArea, String projectDescription,
                        String objectives, String[] technologies, String stakeholders,
                        Date completionDate, Date peopleLaunchDate, Boolean gost,
-                       String cardStatus, ProjectType projectType, Team team,
-                       Location location, User cardAuthor, WorkingHoursPattern workingHoursPattern) {
+                       String cardStatus, String prevCardStatus, ProjectType projectType,
+                       Team team, Location location, User cardAuthor,
+                       WorkingHoursPattern workingHoursPattern) {
         this.projectName = projectName;
         this.projClientName = projClientName;
         this.projectStage = projectStage;
@@ -108,6 +113,7 @@ public class ProjectCard {
         this.peopleLaunchDate = peopleLaunchDate;
         this.gost = gost;
         this.cardStatus = cardStatus;
+        this.prevCardStatus = prevCardStatus;
         this.projectType = projectType;
         this.team = team;
         this.location = location;
