@@ -13,7 +13,7 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping(value = "/api/users/auth", produces="application/json")
+    @GetMapping(value = "/api/users/auth", produces = "application/json")
     public ResponseEntity<UserDto> getSampleUser() {
         return ResponseEntity.ok(userService.getFirstUser());
     }

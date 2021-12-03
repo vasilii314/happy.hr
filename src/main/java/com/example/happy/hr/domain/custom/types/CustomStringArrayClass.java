@@ -22,7 +22,7 @@ public class CustomStringArrayClass implements UserType {
     @Override
     public boolean equals(Object x, Object y) throws HibernateException {
         if (x instanceof String[] && y instanceof String[]) {
-            return Arrays.deepEquals((String[])x, (String[])y);
+            return Arrays.deepEquals((String[]) x, (String[]) y);
         } else {
             return false;
         }
@@ -30,7 +30,7 @@ public class CustomStringArrayClass implements UserType {
 
     @Override
     public int hashCode(Object x) throws HibernateException {
-        return Arrays.hashCode((String[])x);
+        return Arrays.hashCode((String[]) x);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CustomStringArrayClass implements UserType {
     public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
             throws HibernateException, SQLException {
         if (value != null && st != null) {
-            Array array = session.connection().createArrayOf("text", (String[])value);
+            Array array = session.connection().createArrayOf("text", (String[]) value);
             st.setArray(index, array);
         } else {
             st.setNull(index, sqlTypes()[0]);
@@ -53,7 +53,7 @@ public class CustomStringArrayClass implements UserType {
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
-        String[] a = (String[])value;
+        String[] a = (String[]) value;
         return Arrays.copyOf(a, a.length);
     }
 

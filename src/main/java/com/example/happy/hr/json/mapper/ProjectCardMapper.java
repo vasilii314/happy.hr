@@ -92,7 +92,7 @@ public interface ProjectCardMapper {
 
     default TeamDto toTeamDto(Team team) {
 
-        if ( team == null ) {
+        if (team == null) {
             return null;
         }
 

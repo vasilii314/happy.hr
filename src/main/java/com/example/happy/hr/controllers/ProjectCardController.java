@@ -31,7 +31,7 @@ public class ProjectCardController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping( value = "/registry", produces="application/json")
+    @GetMapping(value = "/registry", produces = "application/json")
     public ResponseEntity<List<ProjectCardInfo>> getRegistryPage(@RequestParam(required = false) String projClient,
                                                                  @RequestParam(required = false) String cardAuthor,
                                                                  @RequestParam(required = false) String cardStatus,
@@ -45,7 +45,7 @@ public class ProjectCardController {
         );
     }
 
-    @GetMapping(value = "/{id}", produces="application/json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ProjectCardDto> getProjectCardById(@PathVariable Integer id) {
         return ResponseEntity.ok(projectCardService.getProjectCardById(id));
     }

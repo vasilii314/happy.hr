@@ -9,6 +9,7 @@ import com.example.happy.hr.json.mapper.ProjectCardMapper;
 import com.example.happy.hr.repositories.ProjectCardRepository;
 import com.example.happy.hr.services.ProjectCardService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ProjectCardServiceImpl implements ProjectCardService {
 
     private ProjectCardRepository projectCardRepository;
@@ -24,6 +26,8 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info) {
+
+        log.info("Getting project registry page " + +info.getPageNum());
 
         String urlPrefix = "http://localhost:8080/api/cards";
 
@@ -41,6 +45,8 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     public ProjectCardDto getProjectCardById(Integer projectCardId) {
+        log.info("Getting card " + projectCardId);
+
         ProjectCardDto projectCardDto = projectCardMapper
                 .toProjectCardDto(
                         projectCardRepository.getById(projectCardId)
@@ -53,6 +59,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     public void save(ProjectCardDto cardDto) {
+        log.info("Saving card: {}", cardDto);
         ProjectCard projectCard = projectCardMapper.toProjectCard(cardDto);
         projectCardRepository.save(projectCard);
     }
@@ -60,17 +67,20 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     @Override
     @Transactional
     public void archiveById(Integer id) {
+        log.info("Archiving card " + id);
         projectCardRepository.archiveById(id);
     }
 
     @Override
     @Transactional
     public void unarchiveById(Integer id) {
+        log.info("Unarchiving card " + id);
         projectCardRepository.unarchiveById(id);
     }
 
     @Override
     public void deleteById(Integer id) {
+        log.info("Deleting card " + id);
         projectCardRepository.deleteById(id);
     }
 }
