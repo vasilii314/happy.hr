@@ -3,6 +3,8 @@ services:
   app:
     container_name: happy-hr-app
     image: 'happy.hr:latest'
+    volumes:
+      - ./log:/logs
     build: ./
     ports:
       - "8080:8080"
@@ -16,7 +18,6 @@ services:
     image: 'postgres:alpine'
     volumes:
       - /var/lib/postgresql
-      - ./log:/logs
     ports:
       - "5432:5432"
     environment:
