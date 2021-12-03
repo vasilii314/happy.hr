@@ -19,9 +19,9 @@ public class ProjectCardWrapper {
 
     private String cardStatus;
 
-    private String[] functionalDirection;
+    private String functionalDirection;
 
-    private String[] subjectArea;
+    private String subjectArea;
 
     private String projectStage;
 }

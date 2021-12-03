@@ -35,13 +35,13 @@ public class ProjectCard {
     @Column(name = "project_stage")
     private String projectStage;
 
+    @Length(max = 1024)
     @Column(name = "functional_direction")
-    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
-    private String[] functionalDirection;
+    private String functionalDirection;
 
+    @Length(max = 1024)
     @Column(name = "subject_area")
-    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
-    private String[] subjectArea;
+    private String subjectArea;
 
     @NotBlank
     @Column(name = "project_description")
@@ -94,7 +94,7 @@ public class ProjectCard {
     private WorkingHoursPattern workingHoursPattern;
 
     public ProjectCard(String projectName, String projClientName, String projectStage,
-                       String[] functionalDirection, String[] subjectArea, String projectDescription,
+                       String functionalDirection, String subjectArea, String projectDescription,
                        String objectives, String[] technologies, String stakeholders,
                        Date completionDate, Date peopleLaunchDate, Boolean gost,
                        String cardStatus, String prevCardStatus, ProjectType projectType,

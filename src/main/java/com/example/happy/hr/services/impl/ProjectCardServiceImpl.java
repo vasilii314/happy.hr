@@ -25,10 +25,17 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     @Override
     public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info) {
 
+        String urlPrefix = "http://localhost:8080/api/cards";
+
         return projectCardRepository
                 .getProjectCardPage(filter, info)
                 .stream()
-                .map(wrapper -> new ProjectCardInfo(wrapper, "http://localhost:8080/api/cards/" + wrapper.getId()))
+                .map(wrapper -> new ProjectCardInfo(
+                        wrapper,
+                        urlPrefix + wrapper.getId(),
+                        urlPrefix + "/archive/" + wrapper.getId(),
+                        urlPrefix + "/archive/" + wrapper.getId()
+                ))
                 .collect(Collectors.toList());
     }
 

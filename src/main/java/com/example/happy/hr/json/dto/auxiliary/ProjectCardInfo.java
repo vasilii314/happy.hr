@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProjectCardInfo {
     private ProjectCardWrapper info;
-    private String url;
+    private String getCardUrl;
+    private String putArchiveCard;
+    private String deleteUnarchiveCard;
 }

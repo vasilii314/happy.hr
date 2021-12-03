@@ -26,9 +26,9 @@ public class ProjectCardDto {
     @NotBlank
     private String projectStage;
 
-    private String[] functionalDirection;
+    private String functionalDirection;
 
-    private String[] subjectArea;
+    private String subjectArea;
 
     @NotBlank
     private String projectDescription;
