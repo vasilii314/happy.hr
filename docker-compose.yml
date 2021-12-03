@@ -16,6 +16,7 @@ services:
     image: 'postgres:alpine'
     volumes:
       - /var/lib/postgresql
+      - ./log:/logs
     ports:
       - "5432:5432"
     environment:
