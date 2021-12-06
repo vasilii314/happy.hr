@@ -1,10 +1,7 @@
 package com.example.happy.hr.json.mapper;
 
 import com.example.happy.hr.domain.entities.*;
-import com.example.happy.hr.json.dto.PossibleWorkScheduleDto;
-import com.example.happy.hr.json.dto.ProjectCardDto;
-import com.example.happy.hr.json.dto.TeamDto;
-import com.example.happy.hr.json.dto.WorkingHoursPatternDto;
+import com.example.happy.hr.json.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,6 +16,7 @@ public interface ProjectCardMapper {
     @Mapping(target = "peopleLaunchDate",
             expression = "java(card.getPeopleLaunchDate() == null ? null : card.getPeopleLaunchDate().toString())")
     @Mapping(target = "workingHoursPattern", expression = "java(toWorkingHoursPatternDto(card.getWorkingHoursPattern()))")
+    @Mapping(target = "location", expression = "java(toLocationDto(card.getLocation()))")
     ProjectCardDto toProjectCardDto(ProjectCard card);
 
     @Mapping(target = "completionDate",
@@ -28,6 +26,21 @@ public interface ProjectCardMapper {
     @Mapping(target = "workingHoursPattern", expression = "java(toWorkingHoursPattern(dto.getWorkingHoursPattern()))")
     @Mapping(target = "cardStatus", expression = "java(evalCardStatus(dto))")
     ProjectCard toProjectCard(ProjectCardDto dto);
+
+    default LocationDto toLocationDto(Location location) {
+        if (location == null) {
+            return new LocationDto();
+        }
+
+        LocationDto locationDto = new LocationDto();
+
+        locationDto.setId(location.getId());
+        locationDto.setAddress(locationDto.getAddress());
+        locationDto.setOutsource(locationDto.getOutsource());
+        locationDto.setOffice(locationDto.getOffice());
+
+        return locationDto;
+    }
 
     default String evalCardStatus(ProjectCardDto dto) {
         if (dto.getProjectType() != null
@@ -78,8 +91,11 @@ public interface ProjectCardMapper {
 
 
     default WorkingHoursPatternDto toWorkingHoursPatternDto(WorkingHoursPattern pattern) {
+
         if (pattern == null) {
-            return null;
+            WorkingHoursPatternDto patternDto = new WorkingHoursPatternDto();
+            patternDto.setPossibleWorkSchedule(new PossibleWorkScheduleDto());
+            return patternDto;
         }
 
         WorkingHoursPatternDto patternDto = new WorkingHoursPatternDto();
@@ -95,7 +111,7 @@ public interface ProjectCardMapper {
 
     default PossibleWorkScheduleDto toPossibleWorkScheduleDto(PossibleWorkSchedule schedule) {
         if (schedule == null) {
-            return null;
+            return new PossibleWorkScheduleDto();
         }
 
         PossibleWorkScheduleDto scheduleDto = new PossibleWorkScheduleDto();
@@ -110,7 +126,7 @@ public interface ProjectCardMapper {
     default TeamDto toTeamDto(Team team) {
 
         if (team == null) {
-            return null;
+            return new TeamDto();
         }
 
         TeamDto teamDto = new TeamDto();
