@@ -26,8 +26,25 @@ public interface ProjectCardMapper {
     @Mapping(target = "peopleLaunchDate",
             expression = "java(dto.getPeopleLaunchDate() == null || dto.getPeopleLaunchDate().trim() == \"\" ? null : java.sql.Date.valueOf(dto.getPeopleLaunchDate()))")
     @Mapping(target = "workingHoursPattern", expression = "java(toWorkingHoursPattern(dto.getWorkingHoursPattern()))")
+    @Mapping(target = "cardStatus", expression = "java(evalCardStatus(dto))")
     ProjectCard toProjectCard(ProjectCardDto dto);
 
+    default String evalCardStatus(ProjectCardDto dto) {
+        if (dto.getProjectType() != null
+                && dto.getProjectType().getProjectModel() != null
+                && dto.getProjectType().getProjectModel().getProjectModelType() != null
+                && dto.getProjectType().getSoftwareComplex() != null
+                && dto.getProjectType().getSystemType() != null
+                && dto.getProjectType().getMvp() != null
+                && dto.getProjectName() != null
+                && dto.getProjClientName() != null
+                && dto.getGost() != null
+                && dto.getProjectStage() != null
+        ) {
+            return "Активна";
+        }
+        return "Черновик";
+    }
 
     default WorkingHoursPattern toWorkingHoursPattern(WorkingHoursPatternDto patternDto) {
         if (patternDto == null) {

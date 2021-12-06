@@ -19,6 +19,5 @@ public class ProjectTypeDto {
 
     private String systemType;
 
-    @NotNull
     private ProjectModelDto projectModel;
 }

@@ -19,14 +19,11 @@ public class ProjectModelDto {
     private String projectModelType;
 
     @Length(max = 300)
-    @NotBlank
     private String interviewerName;
 
     @PositiveOrZero
-    @NotNull
     private Integer numOfInterviews;
 
     @Length(max = 300)
-    @NotBlank
     private String cvTo;
 }

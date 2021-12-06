@@ -21,7 +21,6 @@ public class ProjectModel {
     private Integer id;
 
     @Column(name = "model_type")
-    @NotBlank
     private String projectModelType;
 
     @Length(max = 300)
@@ -30,12 +29,10 @@ public class ProjectModel {
 
     @PositiveOrZero
     @Column(name = "num_of_interviews")
-    @NotNull
     private Integer numOfInterviews;
 
     @Length(max = 300)
     @Column(name = "cv_to")
-    @NotBlank
     private String cvTo;
 
     public ProjectModel(String projectModelType, String interviewerName,

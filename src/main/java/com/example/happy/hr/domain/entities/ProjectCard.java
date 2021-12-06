@@ -22,16 +22,13 @@ public class ProjectCard {
     private Integer id;
 
     @Length(max = 500)
-    @NotBlank
     @Column(name = "project_name")
     private String projectName;
 
     @Length(max = 500)
-    @NotBlank
     @Column(name = "proj_client_name")
     private String projClientName;
 
-    @NotBlank
     @Column(name = "project_stage")
     private String projectStage;
 
@@ -43,7 +40,6 @@ public class ProjectCard {
     @Column(name = "subject_area")
     private String subjectArea;
 
-    @NotBlank
     @Column(name = "project_description")
     private String projectDescription;
 
@@ -60,7 +56,6 @@ public class ProjectCard {
     @Column(name = "people_launch_date")
     private Date peopleLaunchDate;
 
-    @NotNull
     @Column(name = "has_gost")
     private Boolean gost;
 
@@ -74,7 +69,6 @@ public class ProjectCard {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_type_id")
-    @NotNull
     private ProjectType projectType;
 
     @OneToOne(cascade = CascadeType.ALL)

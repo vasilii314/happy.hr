@@ -16,21 +16,17 @@ public class ProjectCardDto {
     private Integer id;
 
     @Length(max = 500)
-    @NotBlank
     private String projectName;
 
     @Length(max = 500)
-    @NotBlank
     private String projClientName;
 
-    @NotBlank
     private String projectStage;
 
     private String functionalDirection;
 
     private String subjectArea;
 
-    @NotBlank
     private String projectDescription;
 
     private String objectives;
@@ -47,7 +43,6 @@ public class ProjectCardDto {
 
     private String cardStatus;
 
-    @NotNull
     private ProjectTypeDto projectType;
 
     private TeamDto team;
