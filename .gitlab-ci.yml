@@ -28,7 +28,7 @@ check variables:
     
 build image:
     before_script:
-        - export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        - export version=1
         - export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
     script:
