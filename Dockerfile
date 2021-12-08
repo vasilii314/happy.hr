@@ -8,22 +8,13 @@ RUN ls -la /usr/myapp/build/libs/
 
 FROM gradle:jdk17-alpine as server
 ARG JAVA_PARAM="-Xms256M -Xmx1024M -XX:+UseG1GC"
-
-ARG JAR_FILE=*.jar
 ARG APP_PATH=/opt/app/
 
 ENV JAVA_PARAM=$JAVA_PARAM
 WORKDIR /opt/app
-COPY --from=builder /usr/myapp/build/libs/${JAR_FILE} //opt/app/app.jar}
+COPY --from=builder /usr/myapp/build/libs/*.jar /opt/app/app.jar
 
-
-RUN chown nobody -R /opt/app
-USER 65534
+RUN chmod 777 /opt/app/app.jar
 ENV PATH=$PATH:/opt/app
 EXPOSE 8080
 CMD ["sh", "-c", "java ${JAVA_PARAM} -Dserver.port=8080 -jar /opt/app/app.jar"]
-
-
-
-
-
