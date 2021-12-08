@@ -3,7 +3,7 @@ COPY . /usr/myapp
 WORKDIR /usr/myapp
 COPY . .
 
-RUN gradle build --no-daemon -P docker -DskipTests
+RUN gradle clean build --no-daemon -P docker -DskipTests
 RUN ls -la /usr/myapp/build/libs/
 
 FROM gradle:jdk17-alpine as server
@@ -14,14 +14,14 @@ ARG APP_PATH=/opt/app/
 
 ENV JAVA_PARAM=$JAVA_PARAM
 WORKDIR /opt/app
-COPY --from=builder /usr/myapp/build/libs/${JAR_FILE} /${APP_PATH}
+COPY --from=builder /usr/myapp/build/libs/${JAR_FILE} //opt/app/app.jar}
 
 
 RUN chown nobody -R /opt/app
 USER 65534
-ENV PATH=$APP_PATH:/opt/app
+ENV PATH=$PATH:/opt/app
 EXPOSE 8080
-CMD ["sh", "-c", "java ${JAVA_PARAM} -Dserver.port=8080 -jar ${APP_PATH}"]
+CMD ["sh", "-c", "java ${JAVA_PARAM} -Dserver.port=8080 -jar /opt/app/app.jar"]
 
 
 
