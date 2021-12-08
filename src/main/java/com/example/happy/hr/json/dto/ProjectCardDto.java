@@ -51,5 +51,6 @@ public class ProjectCardDto {
 
     private WorkingHoursPatternDto workingHoursPattern;
 
+    @NotNull
     private UserDto cardAuthor;
 }

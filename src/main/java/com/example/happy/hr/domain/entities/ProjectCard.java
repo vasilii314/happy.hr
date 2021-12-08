@@ -1,19 +1,23 @@
 package com.example.happy.hr.domain.entities;
 
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
 @Table(name = "project_card")
 @NoArgsConstructor
 @Data
+@TypeDef(
+        name = "string-array",
+        typeClass = StringArrayType.class
+)
 public class ProjectCard {
 
     @Id
@@ -45,7 +49,8 @@ public class ProjectCard {
 
     private String objectives;
 
-    @Type(type = "com.example.happy.hr.domain.custom.types.CustomStringArrayClass")
+    @Type(type = "string-array")
+    @Column(columnDefinition = "VARCHAR []")
     private String[] technologies;
 
     private String stakeholders;

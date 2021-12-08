@@ -6,6 +6,7 @@ import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
 import com.example.happy.hr.services.ProjectCardService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cards")
 @AllArgsConstructor
+@Slf4j
 public class ProjectCardController {
 
     private ProjectCardService projectCardService;
@@ -27,6 +29,7 @@ public class ProjectCardController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCard(@RequestBody @Valid ProjectCardDto projectCardDto) {
+        log.info("Updating card {}", projectCardDto);
         projectCardService.save(projectCardDto);
         return ResponseEntity.status(204).build();
     }
