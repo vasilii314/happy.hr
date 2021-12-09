@@ -29,7 +29,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     @Override
     public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, Map<String, SortInfo> sortInfo) {
 
-        log.info("Getting project registry page " + +info.getPageNum());
+        log.info("Getting project registry page " + info.getPageNum());
 
         String urlPrefix = "http://localhost:8080/api/cards";
 
