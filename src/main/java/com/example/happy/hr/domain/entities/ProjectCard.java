@@ -8,6 +8,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
@@ -86,6 +87,7 @@ public class ProjectCard {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @NotNull
     private User cardAuthor;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -51,6 +48,5 @@ public class ProjectCardDto {
 
     private WorkingHoursPatternDto workingHoursPattern;
 
-    @NotNull
     private UserDto cardAuthor;
 }
