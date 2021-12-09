@@ -2,6 +2,7 @@ package com.example.happy.hr.repositories.custom.impl;
 
 import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
+import com.example.happy.hr.controllers.query.params.SortInfo;
 import com.example.happy.hr.domain.entities.ProjectCard;
 import com.example.happy.hr.domain.entities.ProjectCard_;
 import com.example.happy.hr.domain.entities.User;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 public class CustomProjectCardRepositoryImpl implements CustomProjectCardRepository {
@@ -20,7 +22,7 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
     private EntityManager entityManager;
 
     @Override
-    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo) {
+    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, Map<String, SortInfo> sortInfo) {
 
         if (pageInfo == null) {
             throw new IllegalArgumentException("Page info must be specified");
@@ -59,10 +61,39 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                                 projectCardRoot.get(ProjectCard_.projectStage)
                         )
                 )
-                .distinct(true)
-                .orderBy(
-                        criteriaBuilder.asc(projectCardRoot.get(ProjectCard_.id))
-                );
+                .distinct(true);
+
+        if (!sortInfo.isEmpty()) {
+            if (sortInfo.containsKey("fullName"))  {
+                if (sortInfo.get("fullName") == SortInfo.ASC) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(fullName));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(fullName));
+                }
+            }
+            if (sortInfo.containsKey("id"))  {
+                if (sortInfo.get("id") == SortInfo.ASC) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("id")));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("id")));
+                }
+            }
+            if (sortInfo.containsKey("projectName"))  {
+                if (sortInfo.get("projectName") == SortInfo.ASC) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("projectName")));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("projectName")));
+                }
+            }
+            if (sortInfo.containsKey("projClientName"))  {
+                if (sortInfo.get("projClientName") == SortInfo.ASC) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("projClientName")));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("projClientName")));
+                }
+            }
+        }
+
 
         if (filter != null) {
             String projectClientName = filter.getProjClientName();

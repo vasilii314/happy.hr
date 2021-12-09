@@ -53,6 +53,7 @@ public interface ProjectCardMapper {
                 && dto.getProjClientName() != null
                 && dto.getGost() != null
                 && dto.getProjectStage() != null
+                && dto.getProjectDescription() != null
         ) {
             return "Активна";
         }
