@@ -60,8 +60,8 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                                 projectCardRoot.get(ProjectCard_.subjectArea),
                                 projectCardRoot.get(ProjectCard_.projectStage)
                         )
-                )
-                .distinct(true);
+                );
+//                .distinct(true);
 
         if (!sortInfo.isEmpty()) {
             if (sortInfo.containsKey("fullName"))  {
@@ -96,13 +96,25 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
 
 
         if (filter != null) {
+            String projectName = filter.getProjName();
             String projectClientName = filter.getProjClientName();
             String projectCardAuthor = filter.getCardAuthor();
             String projectCardStatus = filter.getCardStatus();
 
+            Predicate projectNamePredicate = projectName != null ?
+                    criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projectName), "%" + projectName + "%")
+                    : criteriaBuilder.or(
+                            criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projectName), "%"),
+                            criteriaBuilder.isNull(projectCardRoot.get(ProjectCard_.projectName))
+                    );
+
             Predicate projectClientNamePredicate = projectClientName != null ?
                     criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%" + projectClientName + "%")
-                    : criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%");
+                    : criteriaBuilder.or(
+                            criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%"),
+                            criteriaBuilder.isNull(projectCardRoot.get(ProjectCard_.projClientName))
+                    );
+//                    criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%");
 
             Predicate projectCardAuthorPredicate = projectCardAuthor != null ?
                     criteriaBuilder.like(fullName, "%" + projectCardAuthor + "%") :
@@ -114,6 +126,7 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
 
             criteriaQuery.where(
                     criteriaBuilder.and(
+                            projectNamePredicate,
                             projectClientNamePredicate,
                             projectCardAuthorPredicate,
                             projectCardStatusPredicate
@@ -126,5 +139,46 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                 .setMaxResults(pageInfo.getPageSize())
                 .setFirstResult((pageInfo.getPageNum() - 1) * pageInfo.getPageSize())
                 .getResultList();
+    }
+
+    @Override
+    public ProjectCardWrapper getRegistryRecordById(Integer id) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProjectCardWrapper> criteriaQuery = criteriaBuilder.createQuery(ProjectCardWrapper.class);
+        Root<ProjectCard> projectCardRoot = criteriaQuery.from(ProjectCard.class);
+        Join<ProjectCard, User> joinUserToProjectCard = projectCardRoot.join(ProjectCard_.cardAuthor, JoinType.LEFT);
+
+        Expression<String> fullName =
+                criteriaBuilder.concat(
+                        joinUserToProjectCard.get(User_.name),
+                        criteriaBuilder.concat(
+                                " ",
+                                criteriaBuilder.concat(
+                                        joinUserToProjectCard.get(User_.patronymic),
+                                        criteriaBuilder.concat(
+                                                " ", joinUserToProjectCard.get(User_.surname)
+                                        )
+                                )
+                        )
+                );
+
+        criteriaQuery
+                .select(
+                        criteriaBuilder.construct(
+                                ProjectCardWrapper.class,
+                                projectCardRoot.get(ProjectCard_.id),
+                                projectCardRoot.get(ProjectCard_.projectName),
+                                projectCardRoot.get(ProjectCard_.projClientName),
+                                fullName,
+                                projectCardRoot.get(ProjectCard_.cardStatus),
+                                projectCardRoot.get(ProjectCard_.functionalDirection),
+                                projectCardRoot.get(ProjectCard_.subjectArea),
+                                projectCardRoot.get(ProjectCard_.projectStage)
+                        )
+                )
+                .where(
+                        criteriaBuilder.equal(projectCardRoot.get(ProjectCard_.id), id)
+                );
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 }

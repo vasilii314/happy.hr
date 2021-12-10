@@ -6,6 +6,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class ProjectRegistryFilter {
+    private final String projName;
     private final String projClientName;
     private final String cardAuthor;
     private final String cardStatus;

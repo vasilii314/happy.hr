@@ -38,7 +38,8 @@ public class ProjectCardController {
     }
 
     @GetMapping(value = "/registry", produces = "application/json")
-    public ResponseEntity<List<ProjectCardInfo>> getRegistryPage(@RequestParam(required = false) String projClient,
+    public ResponseEntity<List<ProjectCardInfo>> getRegistryPage(@RequestParam(required = false) String projName,
+                                                                 @RequestParam(required = false) String projClient,
                                                                  @RequestParam(required = false) String cardAuthor,
                                                                  @RequestParam(required = false) String cardStatus,
                                                                  @RequestParam(required = false) Integer page,
@@ -60,7 +61,7 @@ public class ProjectCardController {
         return ResponseEntity.ok(
                 projectCardService
                         .getProjectCardPage(
-                                new ProjectRegistryFilter(projClient, cardAuthor, cardStatus),
+                                new ProjectRegistryFilter(projName, projClient, cardAuthor, cardStatus),
                                 new PageInfo(page == null || page < 0 ? 1 : page, 10),
                                 sortInfo
                         )
@@ -79,14 +80,12 @@ public class ProjectCardController {
     }
 
     @PutMapping("/archive/{id}")
-    public ResponseEntity<?> archiveCard(@PathVariable Integer id) {
-        projectCardService.archiveById(id);
-        return ResponseEntity.status(204).build();
+    public ResponseEntity<ProjectCardInfo> archiveCard(@PathVariable Integer id) {
+        return ResponseEntity.ok(projectCardService.archiveById(id));
     }
 
     @DeleteMapping("/archive/{id}")
-    public ResponseEntity<?> unarchiveCard(@PathVariable Integer id) {
-        projectCardService.unarchiveById(id);
-        return ResponseEntity.status(204).build();
+    public ResponseEntity<ProjectCardInfo> unarchiveCard(@PathVariable Integer id) {
+        return ResponseEntity.ok(projectCardService.unarchiveById(id));
     }
 }

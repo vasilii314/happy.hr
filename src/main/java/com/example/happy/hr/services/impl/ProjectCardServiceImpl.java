@@ -4,6 +4,7 @@ import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
 import com.example.happy.hr.controllers.query.params.SortInfo;
 import com.example.happy.hr.domain.entities.ProjectCard;
+import com.example.happy.hr.domain.wrappers.ProjectCardWrapper;
 import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
 import com.example.happy.hr.json.mapper.ProjectCardMapper;
@@ -25,22 +26,21 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     private ProjectCardRepository projectCardRepository;
     private ProjectCardMapper projectCardMapper;
+    public static final String URL_PREFIX = "http://localhost:8080/api/cards";
 
     @Override
     public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, Map<String, SortInfo> sortInfo) {
 
         log.info("Getting project registry page " + info.getPageNum());
 
-        String urlPrefix = "http://localhost:8080/api/cards";
-
         return projectCardRepository
                 .getProjectCardPage(filter, info, sortInfo)
                 .stream()
                 .map(wrapper -> new ProjectCardInfo(
                         wrapper,
-                        urlPrefix + wrapper.getId(),
-                        urlPrefix + "/archive/" + wrapper.getId(),
-                        urlPrefix + "/archive/" + wrapper.getId()
+                        URL_PREFIX + "/" + wrapper.getId(),
+                        URL_PREFIX + "/archive/" + wrapper.getId(),
+                        URL_PREFIX + "/archive/" + wrapper.getId()
                 ))
                 .collect(Collectors.toList());
     }
@@ -68,16 +68,30 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     @Transactional
-    public void archiveById(Integer id) {
+    public ProjectCardInfo archiveById(Integer id) {
         log.info("Archiving card " + id);
         projectCardRepository.archiveById(id);
+        ProjectCardWrapper wrapper = projectCardRepository.getRegistryRecordById(id);
+        return new ProjectCardInfo(
+                wrapper,
+                URL_PREFIX + "/" + wrapper.getId(),
+                URL_PREFIX + "/archive/" + wrapper.getId(),
+                URL_PREFIX + "/archive/" + wrapper.getId()
+        );
     }
 
     @Override
     @Transactional
-    public void unarchiveById(Integer id) {
+    public ProjectCardInfo unarchiveById(Integer id) {
         log.info("Unarchiving card " + id);
         projectCardRepository.unarchiveById(id);
+        ProjectCardWrapper wrapper = projectCardRepository.getRegistryRecordById(id);
+        return new ProjectCardInfo(
+                wrapper,
+                URL_PREFIX + "/" + wrapper.getId(),
+                URL_PREFIX + "/archive/" + wrapper.getId(),
+                URL_PREFIX + "/archive/" + wrapper.getId()
+        );
     }
 
     @Override

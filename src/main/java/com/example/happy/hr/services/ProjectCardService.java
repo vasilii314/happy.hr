@@ -3,6 +3,7 @@ package com.example.happy.hr.services;
 import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
 import com.example.happy.hr.controllers.query.params.SortInfo;
+import com.example.happy.hr.domain.entities.ProjectCard;
 import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
 
@@ -17,9 +18,9 @@ public interface ProjectCardService {
 
     void save(ProjectCardDto cardDto);
 
-    void archiveById(Integer id);
+    ProjectCardInfo archiveById(Integer id);
 
-    void unarchiveById(Integer id);
+    ProjectCardInfo unarchiveById(Integer id);
 
     void deleteById(Integer id);
 }
