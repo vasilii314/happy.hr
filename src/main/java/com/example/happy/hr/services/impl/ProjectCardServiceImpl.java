@@ -60,10 +60,11 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     }
 
     @Override
-    public void save(ProjectCardDto cardDto) {
+    public Integer save(ProjectCardDto cardDto) {
         log.info("Saving card: {}", cardDto);
         ProjectCard projectCard = projectCardMapper.toProjectCard(cardDto);
         projectCardRepository.save(projectCard);
+        return projectCard.getId();
     }
 
     @Override

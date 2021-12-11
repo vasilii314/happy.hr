@@ -61,7 +61,6 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                                 projectCardRoot.get(ProjectCard_.projectStage)
                         )
                 );
-//                .distinct(true);
 
         if (!sortInfo.isEmpty()) {
             if (sortInfo.containsKey("fullName"))  {
@@ -114,7 +113,6 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                             criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%"),
                             criteriaBuilder.isNull(projectCardRoot.get(ProjectCard_.projClientName))
                     );
-//                    criteriaBuilder.like(projectCardRoot.get(ProjectCard_.projClientName), "%");
 
             Predicate projectCardAuthorPredicate = projectCardAuthor != null ?
                     criteriaBuilder.like(fullName, "%" + projectCardAuthor + "%") :

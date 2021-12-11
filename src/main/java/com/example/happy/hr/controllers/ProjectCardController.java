@@ -26,8 +26,7 @@ public class ProjectCardController {
 
     @PostMapping("/new")
     public ResponseEntity<?> createProjectCard(@RequestBody @Valid ProjectCardDto projectCardDto) {
-        projectCardService.save(projectCardDto);
-        return ResponseEntity.status(201).build();
+        return ResponseEntity.status(201).body(projectCardService.save(projectCardDto));
     }
 
     @PutMapping("/{id}")

@@ -16,7 +16,7 @@ public interface ProjectCardService {
 
     ProjectCardDto getProjectCardById(Integer projectCardId);
 
-    void save(ProjectCardDto cardDto);
+    Integer save(ProjectCardDto cardDto);
 
     ProjectCardInfo archiveById(Integer id);
 
