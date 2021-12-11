@@ -22,5 +22,9 @@ public interface ProjectCardService {
 
     ProjectCardInfo unarchiveById(Integer id);
 
+    Map<String, Long> count();
+
+    Map<String, Long> count(ProjectRegistryFilter filter);
+
     void deleteById(Integer id);
 }

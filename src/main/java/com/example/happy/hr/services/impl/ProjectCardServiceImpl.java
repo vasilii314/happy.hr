@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -99,5 +100,19 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     public void deleteById(Integer id) {
         log.info("Deleting card " + id);
         projectCardRepository.deleteById(id);
+    }
+
+    @Override
+    public Map<String, Long> count() {
+        Map<String, Long> wrapper = new HashMap<>();
+        wrapper.put("projectsNum", projectCardRepository.count());
+        return wrapper;
+    }
+
+    @Override
+    public Map<String, Long> count(ProjectRegistryFilter filter) {
+        Map<String, Long> wrapper = new HashMap<>();
+        wrapper.put("projectsNum", projectCardRepository.count(filter));
+        return wrapper;
     }
 }

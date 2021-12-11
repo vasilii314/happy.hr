@@ -87,4 +87,21 @@ public class ProjectCardController {
     public ResponseEntity<ProjectCardInfo> unarchiveCard(@PathVariable Integer id) {
         return ResponseEntity.ok(projectCardService.unarchiveById(id));
     }
+
+    @GetMapping("/total")
+    public ResponseEntity<Map<String, Long>> getProjCardsNum(@RequestParam(required = false) String projName,
+                                                             @RequestParam(required = false) String projClient,
+                                                             @RequestParam(required = false) String cardAuthor,
+                                                             @RequestParam(required = false) String cardStatus) {
+        System.out.println(projName);
+        System.out.println(projClient);
+        System.out.println(cardAuthor);
+        System.out.println(cardStatus);
+        return ResponseEntity.ok(
+                projectCardService
+                        .count(
+                                new ProjectRegistryFilter(projName, projClient, cardAuthor, cardStatus)
+                        )
+        );
+    }
 }

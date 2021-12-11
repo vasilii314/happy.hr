@@ -11,4 +11,5 @@ import java.util.Map;
 public interface CustomProjectCardRepository {
     List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, Map<String, SortInfo> sortInfo);
     ProjectCardWrapper getRegistryRecordById(Integer id);
+    Long count(ProjectRegistryFilter filter);
 }
