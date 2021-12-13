@@ -25,11 +25,13 @@ public class ProjectCardController {
 
     @PostMapping("/new")
     public ResponseEntity<?> createProjectCard(@RequestBody @Valid ProjectCardDto projectCardDto) {
+        log.info("Request on POST /api/cards/new");
         return ResponseEntity.status(201).body(projectCardService.save(projectCardDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCard(@RequestBody @Valid ProjectCardDto projectCardDto) {
+        log.info("Request on PUT /api/cards/{id}");
         log.info("Updating card {}", projectCardDto);
         projectCardService.save(projectCardDto);
         return ResponseEntity.status(204).build();
@@ -43,6 +45,8 @@ public class ProjectCardController {
                                                                  @RequestParam(required = false) Integer page,
                                                                  @RequestParam(required = false) String field,
                                                                  @RequestParam(required = false) String sort) {
+
+        log.info("Request on GET /api/cards/registry");
 
         SortInfo sortInfo = null;
 
@@ -62,22 +66,26 @@ public class ProjectCardController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ProjectCardDto> getProjectCardById(@PathVariable Integer id) {
+        log.info("Request on GET /api/cards/{id}");
         return ResponseEntity.ok(projectCardService.getProjectCardById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCard(@PathVariable Integer id) {
+        log.info("Request on DELETE /api/cards/{id}");
         projectCardService.deleteById(id);
         return ResponseEntity.status(204).build();
     }
 
     @PutMapping("/archive/{id}")
     public ResponseEntity<ProjectCardInfo> archiveCard(@PathVariable Integer id) {
+        log.info("Request on PUT /api/cards/archive/{id}");
         return ResponseEntity.ok(projectCardService.archiveById(id));
     }
 
     @DeleteMapping("/archive/{id}")
     public ResponseEntity<ProjectCardInfo> unarchiveCard(@PathVariable Integer id) {
+        log.info("Request on DELETE /api/cards/archive/{id}");
         return ResponseEntity.ok(projectCardService.unarchiveById(id));
     }
 
@@ -86,6 +94,8 @@ public class ProjectCardController {
                                                              @RequestParam(required = false) String projClient,
                                                              @RequestParam(required = false) String cardAuthor,
                                                              @RequestParam(required = false) String cardStatus) {
+        log.info("Request on GET /api/cards/total");
+
         System.out.println(projName);
         System.out.println(projClient);
         System.out.println(cardAuthor);

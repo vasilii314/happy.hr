@@ -104,6 +104,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     public Map<String, Long> count() {
+        log.info("Counting all cards");
         Map<String, Long> wrapper = new HashMap<>();
         wrapper.put("projectsNum", projectCardRepository.count());
         return wrapper;
@@ -111,6 +112,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
     @Override
     public Map<String, Long> count(ProjectRegistryFilter filter) {
+        log.info("Counting cards with filter applied");
         Map<String, Long> wrapper = new HashMap<>();
         wrapper.put("projectsNum", projectCardRepository.count(filter));
         return wrapper;

@@ -1,5 +1,6 @@
 package com.example.happy.hr.exception.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,10 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
+@Slf4j
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e, WebRequest req) {
+        log.info("Handling EntityNotFoundException");
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", System.currentTimeMillis());
         body.put("status", 404);
@@ -26,6 +29,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e, WebRequest req) {
+        log.info("Handling ConstraintViolationException");
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", System.currentTimeMillis());
         body.put("status", 400);
@@ -35,6 +39,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Object> handleValidationException(ValidationException e, WebRequest req) {
+        log.info("Handling ValidationException");
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", System.currentTimeMillis());
         body.put("status", 400);
