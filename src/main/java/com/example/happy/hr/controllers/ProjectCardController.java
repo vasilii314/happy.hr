@@ -41,7 +41,14 @@ public class ProjectCardController {
                                                                  @RequestParam(required = false) String cardAuthor,
                                                                  @RequestParam(required = false) String cardStatus,
                                                                  @RequestParam(required = false) Integer page,
-                                                                 @RequestBody(required = false) List<SortInfo> sortInfo) {
+                                                                 @RequestParam(required = false) String field,
+                                                                 @RequestParam(required = false) String sort) {
+
+        SortInfo sortInfo = null;
+
+        if (field != null && sort != null) {
+            sortInfo = new SortInfo(field, sort);
+        }
 
         return ResponseEntity.ok(
                 projectCardService

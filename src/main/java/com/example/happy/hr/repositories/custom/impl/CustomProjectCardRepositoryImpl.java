@@ -22,7 +22,7 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
     private EntityManager entityManager;
 
     @Override
-    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, List<SortInfo> sortInfo) {
+    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, SortInfo sortInfo) {
 
         if (pageInfo == null) {
             throw new IllegalArgumentException("Page info must be specified");
@@ -62,22 +62,20 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                         )
                 );
 
-        if (sortInfo != null && !sortInfo.isEmpty()) {
-            sortInfo.forEach(sort -> {
-                if (Objects.equals(sort.getField(), "fullName")) {
-                    if (sort.getSort().equals("asc")) {
-                        criteriaQuery.orderBy(criteriaBuilder.asc(fullName));
-                    } else {
-                        criteriaQuery.orderBy(criteriaBuilder.desc(fullName));
-                    }
+        if (sortInfo != null) {
+            if (sortInfo.getField().equals("cardAuthor")) {
+                if (sortInfo.getSort().equalsIgnoreCase("asc")) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(fullName));
                 } else {
-                    if (sort.getSort().equals("asc")) {
-                        criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get(sort.getField())));
-                    } else {
-                        criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get(sort.getField())));
-                    }
+                    criteriaQuery.orderBy(criteriaBuilder.desc(fullName));
                 }
-            });
+            } else {
+                if (sortInfo.getSort().equalsIgnoreCase("asc")) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get(sortInfo.getField())));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get(sortInfo.getField())));
+                }
+            }
         }
 
         if (filter != null) {

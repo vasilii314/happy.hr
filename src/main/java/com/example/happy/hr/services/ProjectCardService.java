@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ProjectCardService {
 
-    List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, List<SortInfo> sortInfo);
+    List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, SortInfo sortInfo);
 
     ProjectCardDto getProjectCardById(Integer projectCardId);
 

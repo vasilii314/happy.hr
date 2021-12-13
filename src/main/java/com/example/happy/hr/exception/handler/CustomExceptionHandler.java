@@ -8,6 +8,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e, WebRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", System.currentTimeMillis());
+        body.put("status", 404);
+        body.put("message", "Not found");
         return ResponseEntity.status(404).body(body);
     }
 
@@ -25,6 +28,17 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e, WebRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", System.currentTimeMillis());
+        body.put("status", 400);
+        body.put("message", "Bad request");
+        return ResponseEntity.status(400).body(body);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(ValidationException e, WebRequest req) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", System.currentTimeMillis());
+        body.put("status", 400);
+        body.put("message", "Bad request");
         return ResponseEntity.status(400).body(body);
     }
 }

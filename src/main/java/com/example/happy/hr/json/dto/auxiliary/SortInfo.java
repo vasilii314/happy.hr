@@ -2,12 +2,26 @@ package com.example.happy.hr.json.dto.auxiliary;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import javax.validation.ValidationException;
+import java.util.regex.Pattern;
+
 @Data
 public class SortInfo {
-    private String field;
-    private String sort;
+
+//    @Pattern(regexp = "(id)|(projectName)|(projClientName)|(cardAuthor)|(cardStatus)|(functionalDirection)|(subjectArea)|(projectStage)")
+    private final String field;
+
+//    @Pattern(regexp = "([Aa][Ss][Cc])|([Dd][Ee][Ss][Cc])")
+    private final String sort;
+
+    public SortInfo(String field, String sort) {
+        String fieldPattern = "(id)|(projectName)|(projClientName)|(cardAuthor)|(cardStatus)|(functionalDirection)|(subjectArea)|(projectStage)";
+        String sortPattern = "([Aa][Ss][Cc])|([Dd][Ee][Ss][Cc])";
+        if (!Pattern.compile(fieldPattern).matcher(field).matches() || !Pattern.compile(sortPattern).matcher(sort).matches()) {
+            throw new ValidationException("Invalid filed name");
+        }
+        this.field = field;
+        this.sort = sort;
+    }
 }

@@ -8,7 +8,7 @@ import com.example.happy.hr.json.dto.auxiliary.SortInfo;
 import java.util.List;
 
 public interface CustomProjectCardRepository {
-    List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, List<SortInfo> sortInfo);
+    List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, SortInfo sortInfo);
     ProjectCardWrapper getRegistryRecordById(Integer id);
     Long count(ProjectRegistryFilter filter);
 }

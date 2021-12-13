@@ -30,7 +30,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     public static final String URL_PREFIX = "http://localhost:8080/api/cards";
 
     @Override
-    public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, List<SortInfo> sortInfo) {
+    public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, SortInfo sortInfo) {
 
         log.info("Getting project registry page " + info.getPageNum());
 
