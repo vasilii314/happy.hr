@@ -35,21 +35,20 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-
-#          livenessProbe:
-#            httpGet:
-#              path: /
-#              port: {{ .Values.service.port }}
-#            initialDelaySeconds: 350
-#            timeoutSeconds: 40
-#            periodSeconds: 10
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: {{ .Values.service.port }}
-#            initialDelaySeconds: 150
-#            timeoutSeconds: 40
-#            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 150
+            timeoutSeconds: 40
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 150
+            timeoutSeconds: 40
+            periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
