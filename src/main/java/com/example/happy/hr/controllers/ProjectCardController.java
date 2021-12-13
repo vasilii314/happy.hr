@@ -2,9 +2,9 @@ package com.example.happy.hr.controllers;
 
 import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
-import com.example.happy.hr.controllers.query.params.SortInfo;
 import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
+import com.example.happy.hr.json.dto.auxiliary.SortInfo;
 import com.example.happy.hr.services.ProjectCardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,20 +41,7 @@ public class ProjectCardController {
                                                                  @RequestParam(required = false) String cardAuthor,
                                                                  @RequestParam(required = false) String cardStatus,
                                                                  @RequestParam(required = false) Integer page,
-                                                                 @RequestParam(required = false) SortInfo idSort,
-                                                                 @RequestParam(required = false) SortInfo projNameSort,
-                                                                 @RequestParam(required = false) SortInfo clientSort,
-                                                                 @RequestParam(required = false) SortInfo cardAuthorSort) {
-        Map<String, SortInfo> sortInfo = new HashMap<>();
-        if (idSort != null) {
-            sortInfo.put("id", idSort);
-        } else if (projNameSort != null) {
-            sortInfo.put("projectName", projNameSort);
-        } else if (clientSort != null) {
-            sortInfo.put("projClientName", clientSort);
-        } else if (cardAuthorSort != null) {
-            sortInfo.put("fullName", cardAuthorSort);
-        }
+                                                                 @RequestBody(required = false) List<SortInfo> sortInfo) {
 
         return ResponseEntity.ok(
                 projectCardService

@@ -2,19 +2,19 @@ package com.example.happy.hr.repositories.custom.impl;
 
 import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
-import com.example.happy.hr.controllers.query.params.SortInfo;
 import com.example.happy.hr.domain.entities.ProjectCard;
 import com.example.happy.hr.domain.entities.ProjectCard_;
 import com.example.happy.hr.domain.entities.User;
 import com.example.happy.hr.domain.entities.User_;
 import com.example.happy.hr.domain.wrappers.ProjectCardWrapper;
+import com.example.happy.hr.json.dto.auxiliary.SortInfo;
 import com.example.happy.hr.repositories.custom.CustomProjectCardRepository;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 @AllArgsConstructor
 public class CustomProjectCardRepositoryImpl implements CustomProjectCardRepository {
@@ -22,7 +22,7 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
     private EntityManager entityManager;
 
     @Override
-    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, Map<String, SortInfo> sortInfo) {
+    public List<ProjectCardWrapper> getProjectCardPage(ProjectRegistryFilter filter, PageInfo pageInfo, List<SortInfo> sortInfo) {
 
         if (pageInfo == null) {
             throw new IllegalArgumentException("Page info must be specified");
@@ -62,35 +62,22 @@ public class CustomProjectCardRepositoryImpl implements CustomProjectCardReposit
                         )
                 );
 
-        if (!sortInfo.isEmpty()) {
-            if (sortInfo.containsKey("fullName"))  {
-                if (sortInfo.get("fullName") == SortInfo.ASC) {
-                    criteriaQuery.orderBy(criteriaBuilder.asc(fullName));
+        if (sortInfo != null && !sortInfo.isEmpty()) {
+            sortInfo.forEach(sort -> {
+                if (Objects.equals(sort.getField(), "fullName")) {
+                    if (sort.getSort().equals("asc")) {
+                        criteriaQuery.orderBy(criteriaBuilder.asc(fullName));
+                    } else {
+                        criteriaQuery.orderBy(criteriaBuilder.desc(fullName));
+                    }
                 } else {
-                    criteriaQuery.orderBy(criteriaBuilder.desc(fullName));
+                    if (sort.getSort().equals("asc")) {
+                        criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get(sort.getField())));
+                    } else {
+                        criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get(sort.getField())));
+                    }
                 }
-            }
-            if (sortInfo.containsKey("id"))  {
-                if (sortInfo.get("id") == SortInfo.ASC) {
-                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("id")));
-                } else {
-                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("id")));
-                }
-            }
-            if (sortInfo.containsKey("projectName"))  {
-                if (sortInfo.get("projectName") == SortInfo.ASC) {
-                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("projectName")));
-                } else {
-                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("projectName")));
-                }
-            }
-            if (sortInfo.containsKey("projClientName"))  {
-                if (sortInfo.get("projClientName") == SortInfo.ASC) {
-                    criteriaQuery.orderBy(criteriaBuilder.asc(projectCardRoot.get("projClientName")));
-                } else {
-                    criteriaQuery.orderBy(criteriaBuilder.desc(projectCardRoot.get("projClientName")));
-                }
-            }
+            });
         }
 
         if (filter != null) {

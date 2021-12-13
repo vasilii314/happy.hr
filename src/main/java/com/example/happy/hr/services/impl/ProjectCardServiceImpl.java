@@ -2,11 +2,11 @@ package com.example.happy.hr.services.impl;
 
 import com.example.happy.hr.controllers.query.params.PageInfo;
 import com.example.happy.hr.controllers.query.params.ProjectRegistryFilter;
-import com.example.happy.hr.controllers.query.params.SortInfo;
 import com.example.happy.hr.domain.entities.ProjectCard;
 import com.example.happy.hr.domain.wrappers.ProjectCardWrapper;
 import com.example.happy.hr.json.dto.ProjectCardDto;
 import com.example.happy.hr.json.dto.auxiliary.ProjectCardInfo;
+import com.example.happy.hr.json.dto.auxiliary.SortInfo;
 import com.example.happy.hr.json.mapper.ProjectCardMapper;
 import com.example.happy.hr.repositories.ProjectCardRepository;
 import com.example.happy.hr.services.ProjectCardService;
@@ -30,7 +30,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     public static final String URL_PREFIX = "http://localhost:8080/api/cards";
 
     @Override
-    public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, Map<String, SortInfo> sortInfo) {
+    public List<ProjectCardInfo> getProjectCardPage(ProjectRegistryFilter filter, PageInfo info, List<SortInfo> sortInfo) {
 
         log.info("Getting project registry page " + info.getPageNum());
 
