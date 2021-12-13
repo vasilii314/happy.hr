@@ -9,10 +9,8 @@ import java.util.regex.Pattern;
 @Data
 public class SortInfo {
 
-//    @Pattern(regexp = "(id)|(projectName)|(projClientName)|(cardAuthor)|(cardStatus)|(functionalDirection)|(subjectArea)|(projectStage)")
     private final String field;
 
-//    @Pattern(regexp = "([Aa][Ss][Cc])|([Dd][Ee][Ss][Cc])")
     private final String sort;
 
     public SortInfo(String field, String sort) {
