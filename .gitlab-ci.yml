@@ -15,9 +15,7 @@ variables:
 
 check variables:
     before_script:
-        #- export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
-        - export PROJECT_VERSION=1.0
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
     script:
         - echo "version is $version"
@@ -28,9 +26,7 @@ check variables:
     
 build image:
     before_script:
-       # - export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
-        - export PROJECT_VERSION=1.0
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
     script:
         - echo project name is ${PROJECT_NAME}
@@ -39,9 +35,7 @@ build image:
 
 push image:
     before_script:
-        #- export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
-        - export PROJECT_VERSION=1.0
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
     script:
         - docker login ${DOCKER_REPO} -u "${NEXUS_USER}" -p "${NEXUS_PASSWORD}"
@@ -51,8 +45,7 @@ push image:
 
 build helm:
     before_script:
-        #- export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_VERSION=1.0
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
         - export EXPOSE_PORT=$(grep EXPOSE Dockerfile | cut -f2 -d' ')
@@ -80,9 +73,7 @@ build helm:
 
 push helm:
     before_script:
-        #- export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
-        - export PROJECT_VERSION=1.0
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
         - export EXPOSE_PORT=$(grep EXPOSE Dockerfile | cut -f2 -d' ')
     script:
@@ -95,9 +86,7 @@ push helm:
 
 deploy helm:
     before_script:
-        #- export version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        #- export PROJECT_VERSION=$(echo $version | sed "s/-/./g" | rev | cut -d'.' -f2- | rev)
-        - export PROJECT_VERSION=1.0
+        - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
     script:
         - helm repo add ${HELM_REPO} ${HELM_REPO_URL}
