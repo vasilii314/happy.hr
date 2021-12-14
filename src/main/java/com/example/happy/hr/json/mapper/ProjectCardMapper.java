@@ -35,9 +35,9 @@ public interface ProjectCardMapper {
         LocationDto locationDto = new LocationDto();
 
         locationDto.setId(location.getId());
-        locationDto.setAddress(locationDto.getAddress());
-        locationDto.setOutsource(locationDto.getOutsource());
-        locationDto.setOffice(locationDto.getOffice());
+        locationDto.setAddress(location.getAddress());
+        locationDto.setOutsource(location.getOutsource());
+        locationDto.setOffice(location.getOffice());
 
         return locationDto;
     }
