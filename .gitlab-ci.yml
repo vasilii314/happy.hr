@@ -75,7 +75,7 @@ push helm:
     stage: push helm
     dependencies: [build helm]
 
-deploy helm:
+deploy helm into openshift:
     before_script:
         - export PROJECT_VERSION=$(grep 'version =' ./build.gradle | cut -d "'" -f 2 | cut -d "-" -f 1)
         - export PROJECT_GROUP=$(echo ${CI_PROJECT_PATH} | cut -f 1 -d/)
