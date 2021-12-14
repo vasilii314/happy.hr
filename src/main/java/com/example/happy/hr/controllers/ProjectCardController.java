@@ -95,11 +95,6 @@ public class ProjectCardController {
                                                              @RequestParam(required = false) String cardAuthor,
                                                              @RequestParam(required = false) String cardStatus) {
         log.info("Request on GET /api/cards/total");
-
-        System.out.println(projName);
-        System.out.println(projClient);
-        System.out.println(cardAuthor);
-        System.out.println(cardStatus);
         return ResponseEntity.ok(
                 projectCardService
                         .count(
